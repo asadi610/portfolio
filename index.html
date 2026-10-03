@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" id="htmlRoot">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="ملینا اسدی - طراح فرانت‌اند و توسعه‌دهنده نرم‌افزار" />
+    <title>ملینا اسدی | رزومه حرفه‌ای</title>
+    
+    <!-- آیکون‌ها -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    
+    <!-- فونت فارسی و انگلیسی -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-deep: #0a0f1c;
+            --bg-card: rgba(20, 30, 55, 0.6);
+            --accent: #3b82f6;
+            --accent-glow: #60a5fa;
+            --accent-purple: #8b5cf6;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: rgba(59, 130, 246, 0.15);
+            --font-main: 'Vazirmatn', Tahoma, sans-serif;
+            --font-display: 'Saira Extra Condensed', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 20% 10%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 40%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            direction: rtl;
+            text-align: right;
+            overflow-x: hidden;
+            line-height: 1.7;
+            min-height: 100vh;
+            transition: direction 0.3s, text-align 0.3s;
+        }
+
+        body.lang-en { direction: ltr; text-align: left; font-family: 'Saira Extra Condensed', 'Vazirmatn', sans-serif; }
+        body.lang-en .main-content { margin-right: 0; margin-left: 20rem; }
+        body.lang-en #sideNav { right: auto; left: 0; box-shadow: 15px 0 40px rgba(0,0,0,0.6); border-left: none; border-right: 1px solid var(--border-color); }
+        body.lang-en .card::before { right: auto; left: 0; }
+        body.lang-en .section-title::after { right: auto; left: 0; background: linear-gradient(270deg, var(--accent), transparent); }
+        body.lang-en .fa-ul li:hover { transform: translateX(5px); }
+        body.lang-en #sideNav .nav-link::before { right: auto; left: 0; }
+        body.lang-en #sideNav .nav-link:hover { transform: translateX(5px); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); } 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* دکمه زبان */
+        .lang-toggle {
+            position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2000;
+            background: rgba(59, 130, 246, 0.2); color: #fff;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            padding: 0.6rem 1.2rem; border-radius: 50px; cursor: pointer;
+            font-family: var(--font-main); font-weight: 700; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 0.5rem;
+            backdrop-filter: blur(10px); transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3);
+        }
+        .lang-toggle:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.6); }
+        body.lang-en .lang-toggle { left: auto; right: 1.5rem; }
+
+        /* منوی کناری */
+        #sideNav {
+            position: fixed; top: 0; right: 0; width: 20rem; height: 100vh;
+            background: linear-gradient(180deg, #070b14 0%, #0f172a 50%, #070b14 100%);
+            display: flex; flex-direction: column; align-items: center;
+            padding: 2rem 1.5rem; z-index: 1000; text-align: center;
+            overflow-y: auto; box-shadow: -15px 0 40px rgba(0,0,0,0.6);
+            border-left: 1px solid var(--border-color); transition: all 0.3s ease;
+        }
+
+        .profile-wrapper { position: relative; margin-top: 1.5rem; margin-bottom: 2rem; }
+        .profile-wrapper::before {
+            content: ''; position: absolute; inset: -12px; border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--accent), var(--accent-purple), var(--accent));
+            animation: spin 5s linear infinite; z-index: 0; filter: blur(8px); opacity: 0.8;
+        }
+        .img-profile {
+            position: relative; width: 11rem; height: 11rem; border-radius: 50%;
+            object-fit: cover; border: 5px solid #070b14; z-index: 1;
+            transition: transform 0.4s ease; box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+        .img-profile:hover { transform: scale(1.05); }
+
+        #sideNav .nav-link {
+            display: block; padding: 0.85rem 1rem; color: var(--text-muted) !important;
+            font-weight: 700; font-size: 0.95rem; letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 12px; margin: 0.2rem 0; position: relative; text-decoration: none;
+        }
+        #sideNav .nav-link::before {
+            content: ''; position: absolute; right: 0; top: 50%;
+            transform: translateY(-50%) scaleY(0); width: 4px; height: 60%;
+            background: var(--accent); border-radius: 4px;
+            transition: transform 0.3s ease; box-shadow: 0 0 10px var(--accent);
+        }
+        #sideNav .nav-link:hover { color: #fff !important; background: rgba(59, 130, 246, 0.15); transform: translateX(-5px); text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+        #sideNav .nav-link:hover::before { transform: translateY(-50%) scaleY(1); }
+
+        /* محتوای اصلی */
+        .main-content { margin-right: 20rem; padding: 0; }
+        .resume-section { padding: 5rem 4rem; max-width: 70rem; margin: 0 auto; animation: fadeInUp 1s ease; }
+
+        .section-title {
+            font-family: var(--font-display); font-size: 3.5rem; font-weight: 900;
+            color: #fff; text-transform: uppercase; letter-spacing: 2px;
+            margin-bottom: 3rem; position: relative; display: inline-block;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: -10px; right: 0; width: 60%; height: 5px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            border-radius: 5px; box-shadow: 0 0 15px var(--accent);
+        }
+
+        /* کارت‌ها */
+        .card {
+            background: var(--bg-card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px; padding: 2rem; margin-bottom: 1.5rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4); border: 1px solid var(--border-color);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 5px; height: 100%;
+            background: linear-gradient(180deg, var(--accent), var(--accent-purple));
+            transform: scaleY(0); transform-origin: top; transition: transform 0.4s ease;
+            box-shadow: 0 0 20px var(--accent);
+        }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4); }
+        .card:hover::before { transform: scaleY(1); }
+
+        .card h3 { font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+        .card .subheading { font-size: 1rem; font-weight: 600; color: var(--accent-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.9; }
+        .card strong { color: #fff; background: rgba(59, 130, 246, 0.2); padding: 0.1rem 0.5rem; border-radius: 6px; }
+
+        /* تگ‌های تکنولوژی */
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+        .tech-tag {
+            background: rgba(59, 130, 246, 0.15); color: var(--accent-glow);
+            padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;
+            font-weight: 600; border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        /* دکمه گیت‌هاب */
+        .github-btn {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            background: rgba(59, 130, 246, 0.15); color: var(--accent-glow);
+            padding: 0.7rem 1.4rem; border-radius: 12px; text-decoration: none;
+            font-weight: 700; font-size: 0.9rem; margin-top: 1rem;
+            border: 1px solid rgba(59, 130, 246, 0.3); transition: all 0.3s ease;
+        }
+        .github-btn:hover {
+            background: var(--accent); color: #fff; transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+        }
+
+        /* اسکرین‌شات پروژه */
+        .project-image {
+            width: 100%; height: 200px; border-radius: 15px; margin-bottom: 1rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; color: var(--accent);
+            overflow: hidden; position: relative;
+        }
+        .project-image img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* بخش Contact */
+        .contact-section {
+            text-align: center; padding: 5rem 2rem;
+            background: linear-gradient(180deg, transparent, rgba(59, 130, 246, 0.05));
+            border-top: 1px solid var(--border-color);
+        }
+        .contact-section h2 {
+            font-family: var(--font-display); font-size: 3rem; font-weight: 900;
+            color: #fff; margin-bottom: 1rem; text-transform: uppercase;
+        }
+        .contact-section p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem; }
+        .contact-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+        .contact-item {
+            display: flex; align-items: center; gap: 0.7rem;
+            background: var(--bg-card); backdrop-filter: blur(10px);
+            padding: 0.8rem 1.5rem; border-radius: 12px;
+            border: 1px solid var(--border-color); color: var(--text-main);
+            text-decoration: none; font-weight: 600; transition: all 0.3s ease;
+        }
+        .contact-item:hover { border-color: var(--accent); background: rgba(59, 130, 246, 0.15); transform: translateY(-3px); }
+        .contact-item i { color: var(--accent); font-size: 1.2rem; }
+        .contact-btn {
+            display: inline-flex; align-items: center; gap: 0.7rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+            color: #fff; padding: 1rem 2.5rem; border-radius: 50px;
+            text-decoration: none; font-weight: 700; font-size: 1.1rem;
+            transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+            animation: pulseGlow 2.5s infinite;
+            border: none; cursor: pointer; font-family: var(--font-main);
+        }
+        .contact-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 40px rgba(59, 130, 246, 0.7); }
+
+        /* ==================== مودال تماس ==================== */
+        .contact-modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 15, 28, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 3000; opacity: 0; visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .contact-modal-overlay.active { opacity: 1; visibility: visible; }
+        .contact-modal {
+            background: linear-gradient(135deg, rgba(20, 30, 55, 0.95), rgba(10, 15, 28, 0.98));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 25px; padding: 3rem 2.5rem; text-align: center;
+            max-width: 450px; width: 90%; position: relative;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 60px rgba(59, 130, 246, 0.2);
+            transform: scale(0.8) translateY(30px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .contact-modal-overlay.active .contact-modal { transform: scale(1) translateY(0); }
+        .modal-close {
+            position: absolute; top: 1rem; left: 1rem;
+            background: rgba(255, 255, 255, 0.1); border: none;
+            color: var(--text-muted); width: 2.5rem; height: 2.5rem;
+            border-radius: 50%; cursor: pointer; font-size: 1.1rem;
+            transition: all 0.3s ease; display: flex;
+            align-items: center; justify-content: center;
+        }
+        body.lang-en .modal-close { left: auto; right: 1rem; }
+        .modal-close:hover { background: rgba(239, 68, 68, 0.3); color: #ef4444; transform: rotate(90deg); }
+        .modal-icon {
+            width: 5rem; height: 5rem; margin: 0 auto 1.5rem;
+            border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; color: #fff;
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.5);
+            animation: pulseGlow 2.5s infinite;
+        }
+        .contact-modal h3 { font-size: 1.6rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+        .contact-modal p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+        .phone-display {
+            font-family: 'Saira Extra Condensed', monospace;
+            font-size: 2rem; font-weight: 700; color: #fff;
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px dashed rgba(59, 130, 246, 0.4);
+            border-radius: 15px; padding: 1rem; margin-bottom: 1.5rem;
+            letter-spacing: 2px; direction: ltr; text-align: center;
+        }
+        .modal-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+        .modal-btn {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 0.9rem 1.5rem; border-radius: 12px;
+            text-decoration: none; font-weight: 700; font-size: 0.95rem;
+            cursor: pointer; border: none; font-family: var(--font-main);
+            transition: all 0.3s ease;
+        }
+        .modal-btn-call {
+            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+            color: #fff; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        .modal-btn-call:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(59, 130, 246, 0.6); }
+        .modal-btn-copy {
+            background: rgba(255, 255, 255, 0.1); color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .modal-btn-copy:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-3px); }
+        .modal-btn-copy.copied { background: linear-gradient(135deg, #10b981, #059669); border-color: transparent; }
+
+        /* درباره من */
+        #about h1 {
+            font-family: var(--font-display); font-size: 5rem; font-weight: 900;
+            color: #fff; text-transform: uppercase; line-height: 1;
+            margin-bottom: 0.5rem; text-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
+        }
+        #about h1 .text-accent {
+            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5));
+        }
+        #about .subheading { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem; }
+        #about .lead { font-size: 1.1rem; color: var(--text-main); line-height: 2.1; margin-bottom: 2rem; }
+
+        /* شبکه‌های اجتماعی */
+        .social-icons { display: flex; gap: 1rem; }
+        .social-icon {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 3.5rem; height: 3.5rem; background: rgba(59, 130, 246, 0.15);
+            color: var(--accent-glow); border-radius: 16px; font-size: 1.4rem;
+            transition: all 0.3s ease; animation: pulseGlow 2.5s infinite;
+            border: 1px solid rgba(59, 130, 246, 0.3); text-decoration: none;
+        }
+        .social-icon:hover { background: var(--accent); color: #fff; transform: translateY(-5px) rotate(-5deg); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.6); }
+
+        /* مهارت‌ها */
+        .skill-category { margin-bottom: 2.5rem; }
+        .skill-category h4 {
+            color: var(--accent-glow); font-size: 1.1rem; font-weight: 700;
+            margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .skill-tag {
+            display: flex; align-items: center; gap: 0.5rem;
+            background: var(--bg-card); backdrop-filter: blur(10px);
+            padding: 0.7rem 1.2rem; border-radius: 12px;
+            border: 1px solid var(--border-color); color: var(--text-main);
+            font-weight: 600; font-size: 0.95rem; transition: all 0.3s ease;
+        }
+        .skill-tag:hover { border-color: var(--accent); background: rgba(59, 130, 246, 0.15); transform: translateY(-3px); }
+        .skill-tag i { font-size: 1.3rem; }
+        .fa-html5 { color: #e34f26; }
+        .fa-css3-alt { color: #1572b6; }
+        .fa-js-square { color: #f7df1e; }
+        .fa-python { color: #3776ab; }
+        .fa-php { color: #777bb4; }
+        .fa-git-alt { color: #f05032; }
+        .fa-github { color: #fff; }
+        .fa-wordpress { color: #21759b; }
+
+        .fa-ul { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+        .fa-ul li {
+            padding: 0.85rem 1rem; background: var(--bg-card); backdrop-filter: blur(10px);
+            border-radius: 12px; font-weight: 500; color: var(--text-main);
+            transition: all 0.3s ease; display: flex; align-items: center; gap: 0.75rem;
+            border: 1px solid var(--border-color);
+        }
+        .fa-ul li:hover { transform: translateX(-5px); background: rgba(59, 130, 246, 0.15); color: #fff; border-color: var(--accent); }
+        .fa-ul li i { color: var(--accent); font-size: 1.1rem; }
+
+        hr { border: 0; border-top: 1px solid var(--border-color); margin: 0 4rem; opacity: 0.5; }
+
+        /* ریسپانسیو */
+        @media (max-width: 992px) {
+            #sideNav { width: 100%; height: auto; position: relative; padding: 1.5rem 1rem; border-left: none; border-bottom: 1px solid var(--border-color); }
+            .profile-wrapper { margin-top: 0; }
+            .img-profile { width: 7rem; height: 7rem; }
+            #sideNav .navbar-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+            #sideNav .nav-link::before { display: none; }
+            #sideNav .nav-link:hover { transform: none; }
+            .main-content { margin-right: 0; }
+            body.lang-en .main-content { margin-left: 0; }
+            .resume-section { padding: 3rem 1.5rem; }
+            .section-title { font-size: 2.5rem; }
+            #about h1 { font-size: 3rem; }
+            .fa-ul { grid-template-columns: 1fr; }
+            hr { margin: 0 1.5rem; }
+            .lang-toggle { top: 1rem; left: 1rem; padding: 0.5rem 1rem; font-size: 0.8rem; }
+            body.lang-en .lang-toggle { left: auto; right: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()">
+        <i class="fas fa-globe"></i>
+        <span id="langBtnText">EN</span>
+    </button>
+
+    <!-- منوی کناری -->
+    <nav id="sideNav">
+        <a class="navbar-brand" href="#page-top">
+            <div class="profile-wrapper">
+                <img class="img-profile" src="profile.jpg" alt="ملینا اسدی" />
+            </div>
+        </a>
+        <ul class="navbar-nav" style="list-style: none; width: 100%;">
+            <li><a class="nav-link" href="#about" data-fa="👤 درباره من" data-en="👤 About Me">👤 درباره من</a></li>
+            <li><a class="nav-link" href="#Project" data-fa="💼پروژه" data-en="💼 Project">💼 پروژه</a></li>
+            <li><a class="nav-link" href="#education" data-fa="🎓 تحصیلات" data-en="🎓 Education">🎓 تحصیلات</a></li>
+            <li><a class="nav-link" href="#skills" data-fa="⚡ مهارت‌ها" data-en="⚡ Skills">⚡ مهارت‌ها</a></li>
+            <li><a class="nav-link" href="#interests" data-fa="❤️ علایق" data-en="❤️ Interests">❤️ علایق</a></li>
+            <li><a class="nav-link" href="#awards" data-fa="🏆 افتخارات" data-en="🏆 Awards">🏆 افتخارات</a></li>
+            <li><a class="nav-link" href="#contact" data-fa="📬 تماس" data-en="📬 Contact">📬 تماس</a></li>
+        </ul>
+    </nav>
+
+    <!-- محتوای اصلی -->
+    <div class="main-content">
+        
+        <!-- درباره من -->
+        <section class="resume-section" id="about">
+            <h1 class="mb-0" data-fa='ملینا <span class="text-accent">اسدی</span>' data-en='Melina <span class="text-accent">Asadi</span>'>
+                ملینا <span class="text-accent">اسدی</span>
+            </h1>
+            <div class="subheading">
+                <i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> 
+                <span data-fa="ایران، فارس، شیراز" data-en="Shiraz, Fars, Iran">ایران، فارس، شیراز</span> · 
+                <a href="mailto:melinaasadi610@gmail.com" style="color: var(--accent-glow); text-decoration: none;">melinaasadi610@gmail.com</a>
+            </div>
+            <p class="lead" data-fa="من ملینا اسدی هستم، علاقه‌مند به طراحی سایت و تمام موارد مربوط به فرانت‌اند. با پایتون کار کرده‌ام و در بخش بک‌اند نیز با PHP و JavaScript آشنا هستم. طراحی سایت با وردپرس را نیز انجام می‌دهم. عشق من در حوزه فرانت‌اند است و در HTML و CSS مهارت دارم. هدف من ساخت وب‌سایت‌هایی است که هم زیبا باشند و هم تجربه کاربری فوق‌العاده‌ای ارائه دهند." data-en="I am Melina Asadi, passionate about web design and everything related to front-end. I have worked with Python and am also familiar with PHP and JavaScript on the back-end. I also build websites with WordPress. My true passion lies in front-end, and I am skilled in HTML and CSS. My goal is to create websites that are both beautiful and provide an excellent user experience.">
+                من ملینا اسدی هستم، علاقه‌مند به طراحی سایت و تمام موارد مربوط به فرانت‌اند. با پایتون کار کرده‌ام و در بخش بک‌اند نیز با PHP و JavaScript آشنا هستم. طراحی سایت با وردپرس را نیز انجام می‌دهم. عشق من در حوزه فرانت‌اند است و در HTML و CSS مهارت دارم. هدف من ساخت وب‌سایت‌هایی است که هم زیبا باشند و هم تجربه کاربری فوق‌العاده‌ای ارائه دهند.
+            </p>
+            <div class="social-icons">
+                <a class="social-icon" href="https://github.com/asadi610" target="_blank"><i class="fab fa-github"></i></a>
+                <a class="social-icon" href="https://t.me/Asadi_276" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a class="social-icon" href="https://instagram.com/m.asadi_276" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+        </section>
+
+        <hr />
+
+        <!-- پروژه -->
+        <section class="resume-section" id="Project">
+            <h2 class="section-title" data-fa="پروژه" data-en="Project">پروژه</h2>
+            
+            <div class="card">
+                <h3 data-fa="سیستم هدایت شغلی" data-en="Career Guidance System">سیستم هدایت شغلی</h3>
+                <div class="subheading">
+                    <i class="fas fa-code"></i> 
+                    <span data-fa="طراحی و توسعه رابط کاربری و مشارکت در توسعه پروژه" data-en="UI Design & Development and Project Contribution">طراحی و توسعه رابط کاربری و مشارکت در توسعه پروژه</span>
+                </div>
+                
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Tkinter</span>
+                    <span class="tech-tag">PySide6</span>
+                </div>
+
+                <p data-fa="این نرم‌افزار در دو ورژن مختلف طراحی و پیاده‌سازی شده است و دارای قابلیت نصب بر روی سیستم‌عامل‌های ویندوز و لینوکس می‌باشد. بخش گرافیکی (GUI) این پروژه کاملاً توسط من انجام شده است." data-en="This software was designed and implemented in two different versions and can be installed on both Windows and Linux operating systems. The GUI part of this project was entirely done by me.">
+                    این نرم‌افزار در دو ورژن مختلف طراحی و پیاده‌سازی شده است و دارای قابلیت نصب بر روی سیستم‌عامل‌های ویندوز و لینوکس می‌باشد. بخش گرافیکی (GUI) این پروژه کاملاً توسط من انجام شده است.
+                </p>
+                <a class="github-btn" href="https://github.com/MobinaSafarirad/career-guidance" target="_blank">
+                    <i class="fab fa-github"></i>
+                    <span data-fa="مشاهده سورس کد" data-en="View Source Code">مشاهده سورس کد</span>
+                </a>
+            </div>
+
+            <div class="card">
+                <h3 data-fa="توسعه فرانت‌اند نرم‌افزار" data-en="Software Front-End Development">توسعه فرانت‌اند نرم‌افزار</h3>
+                <div class="subheading">
+                    <i class="fas fa-laptop-code"></i> 
+                    <span data-fa="همکاری در پروژه نرم‌افزاری" data-en="Collaboration in a Software Project">همکاری در پروژه نرم‌افزاری</span>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Tkinter</span>
+                    <span class="tech-tag">PySide6</span>
+                </div>
+                <p data-fa="در این پروژه، مسئولیت توسعه بخش فرانت‌اند برنامه را بر عهده داشتم. نسخه اول برنامه با استفاده از Tkinter و نسخه دوم آن با استفاده از PySide6 توسعه داده شد." data-en="In this project, I was responsible for developing the front-end of the application. The first version was developed using Tkinter, and the second version using PySide6.">
+                    در این پروژه، مسئولیت توسعه بخش فرانت‌اند برنامه را بر عهده داشتم. نسخه اول برنامه با استفاده از <strong>Tkinter</strong> و نسخه دوم آن با استفاده از <strong>PySide6</strong> توسعه داده شد.
+                </p>
+                <a class="github-btn" href="https://github.com/MobinaSafarirad/career-pilot-ai-v2" target="_blank">
+                    <i class="fab fa-github"></i>
+                    <span data-fa="مشاهده سورس کد" data-en="View Source Code">مشاهده سورس کد</span>
+                </a>
+            </div>
+        </section>
+
+        <hr />
+
+        <!-- تحصیلات -->
+        <section class="resume-section" id="education">
+            <h2 class="section-title" data-fa="تحصیلات" data-en="Education">تحصیلات</h2>
+            
+            <div class="card">
+                <h3 data-fa="دبیرستان شهید پرویز رضایی" data-en="Shahid Parviz Rezaei High School">دبیرستان شهید پرویز رضایی</h3>
+                <div class="subheading">
+                    <i class="fas fa-graduation-cap"></i> 
+                    <span data-fa="دیپلم" data-en="Diploma">دیپلم</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 data-fa="دوره‌های تخصصی" data-en="Specialized Courses">دوره‌های تخصصی</h3>
+                <div class="subheading">
+                    <i class="fas fa-book"></i> 
+                    <span data-fa="آموزش طراحی سایت" data-en="Web Design Training">آموزش طراحی سایت</span>
+                </div>
+                <p data-fa="یادگیری طراحی سایت و توسعه وب به صورت تخصصی." data-en="Learning web design and web development professionally.">
+                    یادگیری طراحی سایت و توسعه وب به صورت تخصصی.
+                </p>
+            </div>
+        </section>
+
+        <hr />
+
+        <!-- مهارت‌ها -->
+        <section class="resume-section" id="skills">
+            <h2 class="section-title" data-fa="مهارت‌ها" data-en="Skills">مهارت‌ها</h2>
+            
+            <!-- Frontend -->
+            <div class="skill-category">
+                <h4><i class="fas fa-paint-brush"></i> <span data-fa="فرانت‌اند" data-en="Frontend">فرانت‌اند</span></h4>
+                <div class="skill-tags">
+                    <div class="skill-tag"><i class="fab fa-html5"></i> HTML5</div>
+                    <div class="skill-tag"><i class="fab fa-css3-alt"></i> CSS3</div>
+                    <div class="skill-tag"><i class="fab fa-js-square"></i> JavaScript</div>
+                </div>
+            </div>
+
+            <!-- Backend -->
+            <div class="skill-category">
+                <h4><i class="fas fa-code"></i> <span data-fa="برنامه نویسی" data-en="Programming">برنامه نویسی</span></h4>
+                <div class="skill-tags">
+                    <div class="skill-tag"><i class="fab fa-python"></i> Python</div>
+                    <div class="skill-tag"><i class="fab fa-php"></i> PHP</div>
+                </div>
+            </div>
+
+            <!-- Tools -->
+            <div class="skill-category">
+                <h4><i class="fas fa-tools"></i> <span data-fa="ابزارها و پلتفرم‌ها" data-en="Tools & Platforms">ابزارها و پلتفرم‌ها</span></h4>
+                <div class="skill-tags">
+                    <div class="skill-tag"><i class="fab fa-git-alt"></i> Git</div>
+                    <div class="skill-tag"><i class="fab fa-github"></i> GitHub</div>
+                    <div class="skill-tag"><i class="fab fa-wordpress"></i> WordPress</div>
+                </div>
+            </div>
+
+            <!-- Workflow -->
+            <div class="skill-category">
+                <h4><i class="fas fa-tasks"></i> <span data-fa="گردش کار" data-en="Workflow">گردش کار</span></h4>
+                <ul class="fa-ul">
+                    <li><i class="fas fa-check-circle"></i> <span data-fa="طراحی سایت با وردپرس" data-en="WordPress Website Design">طراحی سایت با وردپرس</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-fa="طراحی واکنش‌گرا (Mobile-First)" data-en="Responsive Design (Mobile-First)">طراحی واکنش‌گرا (Mobile-First)</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-fa="تست و اشکال‌زدایی مرورگرها" data-en="Cross-Browser Testing & Debugging">تست و اشکال‌زدایی مرورگرها</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-fa="کار تیمی و همکاری متقابل" data-en="Teamwork & Collaboration">کار تیمی و همکاری متقابل</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-fa="توسعه موتور جستجو (SEO)" data-en="Search Engine Optimization (SEO)">توسعه موتور جستجو (SEO)</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <hr />
+
+        <!-- علایق -->
+        <section class="resume-section" id="interests">
+            <h2 class="section-title" data-fa="علایق" data-en="Interests">علایق</h2>
+            <div class="card">
+                <p data-fa="از بچگی عاشق کامپیوتر بودم و وقتی کلاس اول بودم، از مدرسه جایزه‌ای ارزشمند برای کامپیوتر بردم و از همون لحظه، حس عجیبی به این حوزه پیدا کردم. در دوران هنرستان با طراحی سایت آشنا شدم و این مسیر را با علاقه ادامه دادم." data-en="I have loved computers since childhood. When I was in first grade, I won a valuable prize from school for computers, and from that moment on, I developed a strange feeling for this field. During my time in art school, I became acquainted with web design and continued this path with passion.">
+                    از بچگی عاشق کامپیوتر بودم و وقتی کلاس اول بودم، از مدرسه جایزه‌ای ارزشمند برای کامپیوتر بردم و از همون لحظه، حس عجیبی به این حوزه پیدا کردم. در دوران هنرستان با طراحی سایت آشنا شدم و این مسیر را با علاقه ادامه دادم.
+                </p>
+                <p style="margin-bottom: 0;" data-fa="جدا از کامپیوتر، عاشق موتورسیکلت بودم و با موتورهای برقی شروع کردم و حالا صاحب موتور مورد علاقه و رویایی خودم هستم." data-en="Apart from computers, I loved motorcycles and started with electric motorcycles, and now I own my favorite and dream motorcycle.">
+                    جدا از کامپیوتر، عاشق موتورسیکلت بودم و با موتورهای برقی شروع کردم و حالا صاحب موتور مورد علاقه و رویایی خودم هستم.
+                </p>
+            </div>
+        </section>
+
+        <hr />
+
+        <!-- افتخارات -->
+        <section class="resume-section" id="awards">
+            <h2 class="section-title" data-fa="افتخارات و گواهینامه‌ها" data-en="Awards & Certifications">افتخارات و گواهینامه‌ها</h2>
+            
+            <div class="card">
+                <h3><i class="fas fa-certificate" style="color: #f59e0b;"></i> <span data-fa="مدرک بین‌المللی پایتون" data-en="International Python Certificate">مدرک بین‌المللی پایتون</span></h3>
+                <p style="margin: 0;" data-fa="از کادر دیباگران" data-en="From Kadar Dibagaran">از کادر دیباگران</p>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-trophy" style="color: #f59e0b;"></i> <span data-fa="مقام سوم جشنواره علمی پژوهشی" data-en="3rd Place in Scientific Research Festival">مقام سوم جشنواره علمی پژوهشی</span></h3>
+                <p style="margin: 0;" data-fa="پژوهشسرا قطب کدنویسی استان فارس در حوزه پایتون (به صورت کار تیمی)" data-en="Fars Province Coding Hub Research Center in Python (Teamwork)">پژوهشسرا قطب کدنویسی استان فارس در حوزه پایتون (به صورت کار تیمی)</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- بخش Contact -->
+    <section class="contact-section" id="contact">
+        <h2 data-fa="بیا با هم کار کنیم" data-en="Let's Work Together">بیا با هم کار کنیم</h2>
+        <p data-fa="اگه پروژه‌ای داری یا می‌خوای همکاری کنیم، خوشحال می‌شم بشنوم." data-en="If you have a project or want to collaborate, I'd love to hear from you.">
+            اگه پروژه‌ای داری یا می‌خوای همکاری کنیم، خوشحال می‌شم بشنوم.
+        </p>
+        
+        <div class="contact-grid">
+            <a href="mailto:melinaasadi610@gmail.com" class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>Email</span>
+            </a>
+            <a href="https://github.com/asadi610" target="_blank" class="contact-item">
+                <i class="fab fa-github"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="https://t.me/Asadi_276" target="_blank" class="contact-item">
+                <i class="fab fa-telegram"></i>
+                <span>Telegram</span>
+            </a>
+        </div>
+
+        <button onclick="openContactModal()" class="contact-btn">
+            <i class="fas fa-phone"></i>
+            <span data-fa="تماس با من" data-en="Contact Me">تماس با من</span>
+        </button>
+    </section>
+
+    <!-- مودال تماس -->
+    <div class="contact-modal-overlay" id="contactModal" onclick="closeContactModal(event)">
+        <div class="contact-modal" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeContactModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-icon">
+                <i class="fas fa-phone-alt"></i>
+            </div>
+            
+            <h3 data-fa="شماره تماس من" data-en="My Phone Number">شماره تماس من</h3>
+            <p data-fa="می‌تونی مستقیم زنگ بزنی یا شماره رو کپی کنی" data-en="You can call directly or copy the number">می‌تونی مستقیم زنگ بزنی یا شماره رو کپی کنی</p>
+            
+            <!-- شماره رو اینجا جایگزین کن -->
+            <div class="phone-display" id="phoneNumber">+98 9397699952</div>
+            
+            <div class="modal-actions">
+                <!-- شماره رو توی tel هم جایگزین کن -->
+                <a href="tel:+989397699952" class="modal-btn modal-btn-call">
+                    <i class="fas fa-phone"></i>
+                    <span data-fa="زنگ بزن" data-en="Call Now">زنگ بزن</span>
+                </a>
+                <button onclick="copyPhone()" class="modal-btn modal-btn-copy" id="copyBtn">
+                    <i class="fas fa-copy"></i>
+                    <span data-fa="کپی شماره" data-en="Copy Number">کپی شماره</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleLanguage() {
+            const body = document.body;
+            const htmlRoot = document.getElementById('htmlRoot');
+            const btnText = document.getElementById('langBtnText');
+            body.classList.toggle('lang-en');
+            const isEnglish = body.classList.contains('lang-en');
+            if (isEnglish) {
+                htmlRoot.setAttribute('lang', 'en');
+                htmlRoot.setAttribute('dir', 'ltr');
+                btnText.textContent = 'FA';
+            } else {
+                htmlRoot.setAttribute('lang', 'fa');
+                htmlRoot.setAttribute('dir', 'rtl');
+                btnText.textContent = 'EN';
+            }
+            document.querySelectorAll('[data-fa][data-en]').forEach(el => {
+                el.innerHTML = isEnglish ? el.getAttribute('data-en') : el.getAttribute('data-fa');
+            });
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.resume-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(40px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+
+        // ==================== مودال تماس ====================
+        function openContactModal() {
+            document.getElementById('contactModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeContactModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('contactModal').classList.remove('active');
+            document.body.style.overflow = '';
+            const copyBtn = document.getElementById('copyBtn');
+            if (copyBtn) {
+                copyBtn.classList.remove('copied');
+                copyBtn.querySelector('span').textContent = document.documentElement.lang === 'en' ? 'Copy Number' : 'کپی شماره';
+            }
+        }
+
+        function copyPhone() {
+            const phone = document.getElementById('phoneNumber').textContent;
+            navigator.clipboard.writeText(phone).then(() => {
+                const copyBtn = document.getElementById('copyBtn');
+                copyBtn.classList.add('copied');
+                const span = copyBtn.querySelector('span');
+                span.textContent = document.documentElement.lang === 'en' ? '✓ Copied!' : '✓ کپی شد!';
+                setTimeout(() => {
+                    copyBtn.classList.remove('copied');
+                    span.textContent = document.documentElement.lang === 'en' ? 'Copy Number' : 'کپی شماره';
+                }, 2000);
+            });
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeContactModal();
+        });
+    </script>
+</body>
+</html>
